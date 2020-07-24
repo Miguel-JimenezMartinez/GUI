@@ -28,28 +28,20 @@ i = 0 #Contador de archivos
 x = 0 #Activador de NEXT
 num_li=0
 com = 0
-if os.path.exists("Chosen.txt"):
-	fichero = open("Chosen.txt","r")
-	lineas = fichero.readlines()
-	num_li = len(lineas)
-	fichero.close()
-else:
-	fichero = open("Chosen.txt","a")	
-	fichero.close()
-
+nombre_archivo = 'Chosen.txt'
 
 
 
 def abrir_archivo():
-	global x,original ,anotacion,i,lista1,lista2,direccion1,direccion2,direccion_anotacion
+	global x,original,anotacion,num_li,nombre_archivo,i,lista1,lista2,direccion1,direccion2,direccion_anotacion
 
 	x = 1
-	archivo_abierto = filedialog.askopenfilename(initialdir = "/",
+	archivo_abierto = filedialog.askopenfilename(initialdir = "./",
 				title = "Seleccione archivo",filetypes = (("jpeg files","*.jpg"),
 				("all files",".")))
 	direccion1 = os.path.split(archivo_abierto)
 	direccion2 = os.path.split(direccion1[0])
-	direccion_anotacion = str(direccion2[0])+"/SegmentationClassPNG"
+	direccion_anotacion = str(direccion1[0])+"_mask"
 	lista1 = os.listdir(direccion1[0])
 	lista2 = os.listdir(direccion_anotacion)
 	for i in range (len(lista1)):
@@ -60,6 +52,17 @@ def abrir_archivo():
 
 	original = direccion1[0] + "/" +lista1[i]
 	anotacion = str(direccion_anotacion) +"/"+ lista2[i]
+
+	nombre_archivo = direccion2[0] + '/Chosen_' + direccion2[1] + '.txt'
+
+	if os.path.exists(nombre_archivo):
+		fichero = open(nombre_archivo,"r")
+		lineas = fichero.readlines()
+		num_li = len(lineas)
+		fichero.close()
+	else:
+		fichero = open(nombre_archivo,"a")	
+		fichero.close()
 	
 
 
@@ -134,15 +137,15 @@ def Next():
 			raiz.destroy()
 
 def chos():
-	global num_li,x,lista1,lineas,com
+	global nombre_archivo,num_li,x,lista1,lineas,com
 	if (x > 0 ):
-		fichero = open("Chosen.txt","r")
+		fichero = open(nombre_archivo,"r")
 		lineas = fichero.readlines()
 		num_li = len(lineas)
 		fichero.close()
 		comparador()
 		if(com == 0):
-			fichero = open("Chosen.txt","a")
+			fichero = open(nombre_archivo,"a")
 			fichero.write(lista1[i]+"\n")
 			fichero.close()
 
@@ -150,7 +153,7 @@ def chos():
 			messagebox.showinfo(message="Imagen repetida", title="Error")
 			com = 0	
 
-		fichero = open("Chosen.txt","r")
+		fichero = open(nombre_archivo,"r")
 		lineas = fichero.readlines()
 		num_li = len(lineas)
 		fichero.close()
@@ -169,8 +172,11 @@ def comparador():
 		if mensaje == lista1[i]:
 			com = 1
 			break
+
 def abrir():
-    os.startfile("Chosen.txt") 
+    global nombre_archivo
+
+    os.startfile(nombre_archivo) 
 	     
 
 img1 = Image.open(original)  
