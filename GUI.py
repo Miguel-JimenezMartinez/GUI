@@ -44,12 +44,12 @@ def abrir_archivo():
 	global x,original ,anotacion,i,lista1,lista2,direccion1,direccion2,direccion_anotacion
 
 	x = 1
-	archivo_abierto = filedialog.askopenfilename(initialdir = "/",
+	archivo_abierto = filedialog.askopenfilename(initialdir = "./",
 				title = "Seleccione archivo",filetypes = (("jpeg files","*.jpg"),
 				("all files",".")))
 	direccion1 = os.path.split(archivo_abierto)
-	direccion2 = os.path.split(direccion1[0])
-	direccion_anotacion = str(direccion2[0])+"/SegmentationClassPNG"
+	# direccion2 = os.path.split(direccion1[0])
+	direccion_anotacion = str(direccion1[0])+"_mask"
 	lista1 = os.listdir(direccion1[0])
 	lista2 = os.listdir(direccion_anotacion)
 	for i in range (len(lista1)):
