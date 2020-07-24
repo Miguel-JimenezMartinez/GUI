@@ -125,9 +125,14 @@ def Next():
 		Imagen3.configure(image=img3)
 		Imagen3.image = img3
 
-
 		Texto1.configure(text="Imagen: " + lista1[i])
 		Texto2.configure(text= "ID: " + str(i+1) + " out of "+ str(len(lista1)))
+	elif(i == len(lista1)-1):
+		MsgBox = messagebox.askyesnocancel ('Fin de imagenes','Abrir el txt            (Sí)\nCerrar programa (No)\nNo hacer nada    (Cancel)',icon = 'warning')
+		if (MsgBox == 1):
+			abrir()
+		elif(MsgBox == 0):
+			raiz.destroy()
 
 def chos():
 	global num_li,x,lista1,lineas,com
@@ -165,7 +170,8 @@ def comparador():
 		if mensaje == lista1[i]:
 			com = 1
 			break
-
+def abrir():
+    os.startfile("Chosen.txt") 
 	     
 
 img1 = Image.open(original)  
