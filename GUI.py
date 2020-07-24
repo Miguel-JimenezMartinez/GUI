@@ -10,7 +10,6 @@ raiz = Tk()
 raiz.title("Ventana de pruebas")
 raiz.config(bg = "orange")
 
-
 miframe = Frame(raiz)
 miframe.pack(fill="both",expand ="True")
 miframe.config(bg = "black")
