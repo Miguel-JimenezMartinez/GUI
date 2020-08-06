@@ -42,6 +42,7 @@ def abrir_archivo():
 	direccion1 = os.path.split(archivo_abierto)
 	direccion2 = os.path.split(direccion1[0])
 	direccion_anotacion = str(direccion1[0])+"_mask"
+	raiz.title(str(direccion1[0]))
 	lista1 = os.listdir(direccion1[0])
 	lista2 = os.listdir(direccion_anotacion)
 	for i in range (len(lista1)):
@@ -100,9 +101,8 @@ def Next():
 
 	if (x > 0 and i < len(lista1)-1):
 		i = i +1
-		png  = os.path.splitext(lista2[i]) 
 		original = direccion1[0] + "/" +lista1[i]
-		anotacion = str(direccion_anotacion) +"/"+ png[0]+".png"
+		anotacion = str(direccion_anotacion) +"/"+ lista2[i]
 
 		img = Image.open(original) 
 		img = img.resize((320, 240), Image.ANTIALIAS) 
